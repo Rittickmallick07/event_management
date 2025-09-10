@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>University Events</title>
+  <link rel="stylesheet" href="{% static 'events/university.css' %}">
+</head>
+<body>
+  <header class="uni-hero">
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h1>🎓 University Events</h1>
+      <p>Seamlessly manage, track, and celebrate your university’s biggest moments.</p>
+    </div>
+  </header>
+
+  <section class="event-list">
+    <h2>📅 Upcoming University Events</h2>
+    <a href="{% url 'add_university_event' %}" class="btn">➕ Add New Event</a>
+    <div id="events-container">
+      {% for event in events %}
+      <div class="event-card">
+        <h3>{{ event.name }}</h3>
+        <p><strong>Date:</strong> {{ event.date }}</p>
+        <p><strong>Location:</strong> {{ event.location }}</p>
+        <p>{{ event.description }}</p>
+        <div class="countdown" data-date="{{ event.date }}"></div>
+      </div>
+      {% empty %}
+      <p>No events yet. <a href="{% url 'add_university_event' %}">Add one now</a>.</p>
+      {% endfor %}
+    </div>
+  </section>
+
+  <script>
+    function startCountdowns() {
+      const countdowns = document.querySelectorAll(".countdown");
+      setInterval(() => {
+        countdowns.forEach(cd => {
+          const eventDate = new Date(cd.getAttribute("data-date")).getTime();
+          const now = new Date().getTime();
+          const distance = eventDate - now;
+
+          if (distance > 0) {
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            cd.innerHTML = `${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
+          } else {
+            cd.innerHTML = "<strong>🎉 Event Started!</strong>";
+          }
+        });
+      }, 1000);
+    }
+    startCountdowns();
+  </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🎓 University Events</title>
+  <link rel="stylesheet" href="{% static 'events/event.css' %}">
+</head>
+<body>
+  <header class="page-hero">
+    <h1>🎓 University Events</h1>
+    <p>Seamlessly manage, track, and celebrate your university’s biggest moments.</p>
+  </header>
+
+  <section class="event-form">
+    <h2>Add University Event</h2>
+    <form method="POST">
+      {% csrf_token %}
+      <input type="text" name="event_name" placeholder="Event Name" required>
+      <input type="date" name="event_date" required>
+      <input type="text" name="event_location" placeholder="Location" required>
+      <textarea name="event_desc" placeholder="Event Description" required></textarea>
+      <button type="submit" class="btn">Save Event</button>
+    </form>
+  </section>
+
+  <footer>
+    <p><a href="/events/logout/">Logout</a></p>
+  </footer>
+</body>
+</html>

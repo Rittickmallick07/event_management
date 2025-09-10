@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>University Events | Event Countdown Dashboard</title>
+  <link rel="stylesheet" href="{% static 'events/university.css' %}">
+</head>
+<body>
+
+  <!-- Ambient Floating Orbs -->
+  <div class="floating-orb orb1"></div>
+  <div class="floating-orb orb2"></div>
+
+  <!-- Hero Section -->
+  <header class="uni-hero">
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h1>🎓 University Events</h1>
+      <p>Seamlessly manage, track, and celebrate your university’s biggest moments.</p>
+    </div>
+  </header>
+
+  <!-- Add Event Form -->
+  <section class="event-form">
+    <h2>Add Your University Event</h2>
+    <form method="POST" action="{% url 'add_university_event' %}">
+      {% csrf_token %}
+      <input type="text" name="event_name" placeholder="Event Name" required>
+      <input type="date" name="event_date" required>
+      <input type="text" name="event_location" placeholder="Location" required>
+      <textarea name="event_desc" placeholder="Event Description" required></textarea>
+      <button type="submit" class="btn">➕ Save Event</button>
+    </form>
+  </section>
+
+  <!-- Upcoming Events -->
+  <section class="event-list">
+    <h2>📅 Upcoming University Events</h2>
+    <div id="events-container">
+      {% for event in events %}
+      <div class="event-card">
+        <h3>{{ event.name }}</h3>
+        <p><strong>📍 Location:</strong> {{ event.location }}</p>
+        <p><strong>📝 Description:</strong> {{ event.description }}</p>
+        <div class="countdown" data-date="{{ event.date }}"></div>
+      </div>
+      {% empty %}
+      <p>No events added yet. Be the first to add one!</p>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Event Countdown Dashboard - University Edition</p>
+  </footer>
+
+  <script>
+    // Countdown Timer
+    function startCountdowns() {
+      const countdowns = document.querySelectorAll(".countdown");
+      setInterval(() => {
+        countdowns.forEach(cd => {
+          const eventDate = new Date(cd.getAttribute("data-date")).getTime();
+          const now = new Date().getTime();
+          const distance = eventDate - now;
+
+          if (distance > 0) {
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            cd.innerHTML = `
+              <span>${days}d</span> :
+              <span>${hours}h</span> :
+              <span>${minutes}m</span> :
+              <span>${seconds}s</span>
+            `;
+          } else {
+            cd.innerHTML = "<strong>🎉 Event Started!</strong>";
+          }
+        });
+      }, 1000);
+    }
+    startCountdowns();
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🎓 University Events</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="uni-hero">
+    <h1>🎓 University Events</h1>
+    <p>Track your campus events with a live digital countdown ⏳</p>
+  </header>
+
+  <!-- Event Form -->
+  <section class="event-form">
+    <h2>Add New Event</h2>
+    <form method="POST" action="{% url 'add_university_event' %}">
+      {% csrf_token %}
+      <input type="text" name="event_name" placeholder="Event Name" required>
+      <input type="datetime-local" name="event_date" required>
+      <input type="text" name="event_location" placeholder="Location" required>
+      <textarea name="event_desc" placeholder="Event Description" required></textarea>
+      <button type="submit" class="btn">Save Event</button>
+    </form>
+  </section>
+
+  <!-- Events List with Countdown -->
+  <section class="event-list">
+    <h2>📅 Upcoming Events</h2>
+    {% for event in events %}
+      <div class="event-card">
+        <h3>{{ event.name }}</h3>
+        <p><strong>Date:</strong> {{ event.date }}</p>
+        <p><strong>Location:</strong> {{ event.location }}</p>
+        <p>{{ event.description }}</p>
+        <div class="countdown" data-date="{{ event.date|date:'Y-m-d H:i:s' }}"></div>
+      </div>
+    {% empty %}
+      <p>No events yet. Add one above!</p>
+    {% endfor %}
+  </section>
+
+  <script>
+    // Countdown Timer Script
+    function startCountdowns() {
+      const countdowns = document.querySelectorAll(".countdown");
+      setInterval(() => {
+        countdowns.forEach(cd => {
+          const eventDate = new Date(cd.getAttribute("data-date")).getTime();
+          const now = new Date().getTime();
+          const distance = eventDate - now;
+
+          if (distance > 0) {
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            cd.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+          } else {
+            cd.innerHTML = "<strong>🎉 Event Started!</strong>";
+          }
+        });
+      }, 1000);
+    }
+    startCountdowns();
+  </script>
+</body>
+</html>

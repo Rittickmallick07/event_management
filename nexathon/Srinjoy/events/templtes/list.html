@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ category|title }} Events</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #fff;
+      text-align: center;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-size: 42px;
+      margin: 20px 0;
+      text-shadow: 0 0 15px cyan, 0 0 25px violet;
+    }
+
+    .event-card {
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 15px;
+      margin: 20px auto;
+      padding: 20px;
+      max-width: 600px;
+      box-shadow: 0 0 25px rgba(0,255,255,0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* RGB glowing border */
+    .event-card::before {
+      content: "";
+      position: absolute;
+      top: -2px; left: -2px; right: -2px; bottom: -2px;
+      background: linear-gradient(270deg, red, orange, yellow, lime, cyan, blue, violet, red);
+      background-size: 600% 600%;
+      z-index: -1;
+      border-radius: 18px;
+      filter: blur(10px);
+      animation: rgbGlow 8s linear infinite;
+    }
+
+    @keyframes rgbGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .countdown {
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 10px;
+      text-shadow: 0 0 15px cyan, 0 0 30px violet;
+    }
+
+    a.add-btn {
+      display: inline-block;
+      margin: 20px auto;
+      padding: 12px 20px;
+      background: linear-gradient(90deg, cyan, violet, blue);
+      border-radius: 12px;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+      box-shadow: 0 0 15px cyan;
+      transition: 0.3s;
+    }
+    a.add-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 25px violet, 0 0 35px cyan;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎭 Stage Shows</h1>
+  <a href="{% url 'add_event' category=category %}" class="add-btn">➕ Add Stage Show</a>
+
+  <div id="events">
+    {% for event in events %}
+      <div class="event-card">
+        <h2>{{ event.title }}</h2>
+        <p>{{ event.description }}</p>
+        <p><strong>Date:</strong> {{ event.date }}</p>
+        <p><strong>Location:</strong> {{ event.location }}</p>
+        <div class="countdown" data-date="{{ event.date|date:'Y-m-d H:i:s' }}"></div>
+      </div>
+    {% empty %}
+      <p>No stage shows yet. Add one above 🎉</p>
+    {% endfor %}
+  </div>
+
+  <script>
+    function startCountdowns() {
+      const countdowns = document.querySelectorAll(".countdown");
+      countdowns.forEach(cd => {
+        const target = new Date(cd.getAttribute("data-date")).getTime();
+        setInterval(() => {
+          const now = new Date().getTime();
+          const distance = target - now;
+          if (distance > 0) {
+            const d = Math.floor(distance / (1000*60*60*24));
+            const h = Math.floor((distance % (1000*60*60*24))/(1000*60*60));
+            const m = Math.floor((distance % (1000*60*60))/(1000*60));
+            const s = Math.floor((distance % (1000*60))/1000);
+            cd.innerHTML = `${d}d : ${h}h : ${m}m : ${s}s`;
+          } else {
+            cd.innerHTML = "🎉 Show Started!";
+          }
+        }, 1000);
+      });
+    }
+    startCountdowns();
+  </script>
+</body>
+</html>

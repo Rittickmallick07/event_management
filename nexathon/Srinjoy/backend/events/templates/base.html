@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}Event Countdown Dashboard{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    /* small helper for flash messages */
+    .flash { padding: 12px 16px; border-radius: 8px; margin: 8px auto; max-width: 1100px; }
+    .flash.success { background: rgba(0,255,170,0.12); border: 1px solid rgba(0,255,170,0.18); color: #bfffe6; }
+    .flash.info { background: rgba(0,160,255,0.08); border: 1px solid rgba(0,160,255,0.12); color: #cff0ff; }
+    .flash.danger { background: rgba(255,80,80,0.08); border: 1px solid rgba(255,80,80,0.12); color: #ffdede; }
+    .flash.warning { background: rgba(255,200,0,0.06); border: 1px solid rgba(255,200,0,0.08); color: #fff6d0; }
+  </style>
+  {% block head %}{% endblock %}
+</head>
+<body>
+  {% block body %}{% endblock %}
+
+  <!-- shared scripts -->
+  <script>
+    // Simple fade-out of flashes
+    setTimeout(()=> {
+      document.querySelectorAll('.flash').forEach(n => n.style.opacity = '0.01');
+    }, 4500);
+  </script>
+</body>
+</html>

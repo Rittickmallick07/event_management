@@ -1,0 +1,92 @@
+body { font-family: 'Montserrat', sans-serif; background: #f0f4f8; margin: 0; padding: 0; }
+.event-form, .event-list { max-width: 600px; margin: 2rem auto; padding: 1.5rem; background: #fff; border-radius: 16px; box-shadow: 0 8px 20px rgba(0,0,0,0.12);}
+.event-form h2, .event-list h2 { text-align: center; margin-bottom: 1rem; }
+.event-form input, .event-form textarea { width: 100%; padding: 0.7rem; margin-bottom: 0.8rem; border-radius: 12px; border: 1px solid #ccc; }
+.event-form button { width: 100%; padding: 0.8rem; border: none; border-radius: 50px; background: linear-gradient(90deg,#00d4ff,#0077ff); color: #fff; font-weight: 700; cursor: pointer; }
+.event-card { padding: 1rem; margin-bottom: 1rem; border-radius: 12px; background: #f9fbff; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.countdown { margin-top: 0.5rem; font-weight: 700; color: #0077ff; }
+:root{
+  --bg-1: #071029;
+  --accent: #00bfff;
+  --accent2: #6a00ff;
+  --muted: rgba(255,255,255,0.75);
+}
+
+/* Reset */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg, #041027 0%, #071029 60%);
+  color:#eaf6ff;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+}
+
+/* Ambient orbs */
+.floating-orb{
+  position:fixed;border-radius:50%;filter:blur(72px);opacity:0.12;z-index:0;
+}
+.orb1{width:420px;height:420px;left:-120px;top:-80px;background:linear-gradient(135deg,var(--accent),#00ffea)}
+.orb2{width:360px;height:360px;right:-140px;bottom:-90px;background:linear-gradient(135deg,#ff66cc,var(--accent2))}
+
+/* Login section (top) */
+.login-section{position:relative;z-index:5;display:flex;justify-content:center;padding:32px 16px}
+.login-card{width:380px;background:rgba(255,255,255,0.05);backdrop-filter:blur(8px);padding:24px;border-radius:14px;border:1px solid rgba(255,255,255,0.06);box-shadow:0 10px 30px rgba(0,0,0,0.4);text-align:center}
+.login-card h2{font-size:18px;margin-bottom:10px}
+.login-card input{width:100%;padding:10px;margin:8px 0;border-radius:10px;border:none;background:rgba(255,255,255,0.04);color:#fff}
+.login-card .btn{width:100%;padding:10px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#041027;font-weight:700}
+
+/* Nav / hero */
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;max-width:1200px;margin:0 auto;position:relative;z-index:6}
+.logo{font-weight:800;letter-spacing:0.6px}
+.nav-links{display:flex;gap:18px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-weight:600}
+.hero{max-width:1200px;margin:18px auto 30px;padding:28px 20px;text-align:center;position:relative;z-index:6}
+.hero-content h1{font-size:28px;margin-bottom:6px}
+.hero-content .subtitle{color:rgba(255,255,255,0.85);margin-bottom:12px}
+.btn{display:inline-block;padding:10px 16px;border-radius:10px;border:none;cursor:pointer}
+.btn.accent{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#041027;font-weight:700}
+
+/* sections */
+.section-pad{padding:28px 20px}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-hero h2{font-size:22px;margin-bottom:6px}
+.section-hero .lead{color:rgba(255,255,255,0.9);margin-bottom:12px}
+
+/* forms/columns */
+.forms-row{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px}
+.form-panel{flex:1;min-width:280px;background:rgba(255,255,255,0.03);padding:16px;border-radius:12px}
+.form-panel input, .form-panel textarea{width:100%;padding:10px;margin:8px 0;border-radius:8px;border:none;background:rgba(255,255,255,0.03);color:#fff}
+.form-panel label.small{display:block;font-size:12px;color:rgba(255,255,255,0.6);margin-top:6px}
+
+/* events panel and cards */
+.events-panel{flex:1;min-width:300px}
+.event-card{background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));border-radius:10px;padding:12px;margin-bottom:12px;border:1px solid rgba(255,255,255,0.04)}
+.event-top{display:flex;justify-content:space-between;align-items:center}
+.event-card h4{margin-bottom:6px}
+.event-card p{margin:6px 0;color:rgba(255,255,255,0.9)}
+.countdown{margin-top:8px;font-weight:700;color:var(--accent)}
+.btn.small{padding:6px 8px;font-size:13px;border-radius:7px}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+/* other UI */
+.cards{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.card{background:rgba(255,255,255,0.03);padding:18px;border-radius:12px;min-width:180px}
+.usecase-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:12px}
+.usecase{background:rgba(255,255,255,0.02);padding:10px;border-radius:10px;text-align:center}
+
+/* contact */
+.contact-row{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
+.contact-form{flex:1;min-width:260px}
+.contact-details{flex:1;min-width:260px;background:rgba(255,255,255,0.02);padding:14px;border-radius:10px}
+
+/* footer */
+.footer{text-align:center;padding:20px;color:rgba(255,255,255,0.6)}
+
+/* responsive */
+@media (max-width:900px){
+  .forms-row{flex-direction:column}
+  .floating-orb{display:none}
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ category|title }} Events</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #0f2027; color: #fff; text-align: center; }
+    .event-card { background: rgba(255,255,255,0.1); padding: 15px; margin: 15px; border-radius: 10px; }
+    .countdown { font-weight: bold; font-size: 18px; color: cyan; }
+    a { color: yellow; }
+  </style>
+</head>
+<body>
+  <h1>📅 {{ category|title }} Events</h1>
+  <a href="{% url 'add_event' category=category %}">➕ Add New Event</a>
+  <div id="events">
+    {% for event in events %}
+      <div class="event-card">
+        <h3>{{ event.title }}</h3>
+        <p>{{ event.description }}</p>
+        <p><strong>Date:</strong> {{ event.date }}</p>
+        <p><strong>Location:</strong> {{ event.location }}</p>
+        <div class="countdown" data-date="{{ event.date|date:'Y-m-d H:i:s' }}"></div>
+      </div>
+    {% empty %}
+      <p>No events yet. Add one above.</p>
+    {% endfor %}
+  </div>
+
+  <script>
+    function startCountdowns() {
+      const countdowns = document.querySelectorAll(".countdown");
+      countdowns.forEach(cd => {
+        const target = new Date(cd.getAttribute("data-date")).getTime();
+        setInterval(() => {
+          const now = new Date().getTime();
+          const distance = target - now;
+          if (distance > 0) {
+            const days = Math.floor(distance / (1000*60*60*24));
+            const hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+            const minutes = Math.floor((distance%(1000*60*60))/(1000*60));
+            const seconds = Math.floor((distance%(1000*60))/1000);
+            cd.innerHTML = `${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
+          } else {
+            cd.innerHTML = "🎉 Event Started!";
+          }
+        }, 1000);
+      });
+    }
+    startCountdowns();
+  </script>
+</body>
+</html>

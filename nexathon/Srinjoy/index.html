@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Event Countdown Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Floating Ambient Orbs -->
+  <div class="floating-orb orb1"></div>
+  <div class="floating-orb orb2"></div>
+
+  <!-- Login Section -->
+<!-- Login Section -->
+<section class="login-section">
+  <div class="login-card">
+    <h2>🔓 Login to Your Dashboard</h2>
+    <form method="POST" action="/login">
+      <input type="email" placeholder="📧 Email Address" required>
+      <input type="password" placeholder="🔑 Password" required>
+      <button type="submit" class="btn">Login</button>
+    </form>
+    <p class="signup-text">Don’t have an account? <a href="#">Sign Up</a></p>
+  </div>
+</section>
+
+<style>
+/* Login Section Background */
+.login-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  background: linear-gradient(135deg, #1f1c2c, #928dab); /* Elegant purple gradient */
+  padding: 40px 20px;
+}
+
+/* Login Card */
+.login-card {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 40px 30px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  text-align: center;
+  max-width: 380px;
+  width: 100%;
+  backdrop-filter: blur(10px);
+}
+
+/* Heading */
+.login-card h2 {
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #00c6ff, #0072ff); /* Blue gradient */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Input Fields */
+.login-card input {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 12px 0;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.778);
+  color: rgba(255, 255, 255, 0.771);
+  font-size: 1rem;
+  outline: none;
+  transition: 0.3s ease;
+}
+
+.login-card input:focus {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 8px rgba(0, 198, 255, 0.6);
+}
+
+/* Button */
+.login-card .btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, #ff6a00, #ee0979); /* Orange → Pink gradient */
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+
+.login-card .btn:hover {
+  opacity: 0.9;
+  transform: scale(1.03);
+}
+
+/* Signup Text */
+.signup-text {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.8);
+}
+
+.signup-text a {
+  color: #00c6ff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.signup-text a:hover {
+  text-decoration: underline;
+}
+</style>
+
+  <!-- Header / Navbar -->
+  <header class="hero">
+    <nav class="navbar">
+      <div class="logo">⏳ Event Countdown Dashboard</div>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#usecases">Use Cases</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="hero-content">
+      <h1>Manage Your Events with Precision</h1>
+      <p>A powerful countdown dashboard to keep every event on time and stress-free.</p>
+      <a href="#get-started" class="btn">Get Started</a>
+    </div>
+  </header>
+<section id="features" class="why-choose">
+  <h2>🌟 Why Choose Our Countdown Dashboard?</h2>
+  <div class="why-cards">
+    <div class="why-card">
+      <h3>⏱ Real-time Countdown</h3>
+      <p>Keep track of event timings with accurate countdowns for multiple sessions.</p>
+    </div>
+    <div class="why-card">
+      <h3>📲 Remote Control</h3>
+      <p>Control timers from any device and make instant adjustments on the go.</p>
+    </div>
+    <div class="why-card">
+      <h3>🎉 Multi-Event Support</h3>
+      <p>Manage multiple events simultaneously with one central dashboard.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  
+/* Section Background */
+.why-choose {
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Dark professional gradient */
+  color: white;
+  text-align: center;
+}
+
+/* Section Heading */
+.why-choose h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 40px;
+  background: linear-gradient(90deg, #4facfe, #00f2fe); /* Blue → Teal gradient */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* Card Layout */
+.why-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Each Card */
+.why-card {
+  background: rgba(255, 255, 255, 0.05); /* soft transparent card */
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover Effect */
+.why-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* Card Title */
+.why-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #ff9966, #ff5e62); /* Orange → Red gradient */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Card Text */
+.why-card p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+}
+</style>
+  <!-- Use Cases -->
+  <section id="usecases" class="usecases">
+    <h2>Perfect For Every Occasion</h2>
+    <div class="usecase-grid">
+      <a href="#conferences-events" class="usecase">🎤 Conferences</a>
+      <a href="#concerts-events" class="usecase">🎶 Concerts</a>
+      <a href="#stageshows-events" class="usecase">🎭 Stage Shows</a>
+      <a href="#university-events" class="usecase">🎓 University Events</a>
+      <a href="#sports-events" class="usecase">🏆 Sports</a>
+      <a href="#webinars-events" class="usecase">💻 Webinars</a>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion -->
+  <section id="faq" class="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <button class="faq-question">How does the countdown work?</button>
+      <div class="faq-answer">
+        <p>You can set a timer for each event, and it automatically updates across all devices.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">Can I manage multiple events?</button>
+      <div class="faq-answer">
+        <p>Yes! Our dashboard supports multiple events running at the same time.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">Is it mobile-friendly?</button>
+      <div class="faq-answer">
+        <p>Absolutely. Manage and view countdowns from any device.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call To Action -->
+  <section id="get-started" class="cta">
+    <h2>Ready to Elevate Your Events?</h2>
+    <p>Start your journey today with our professional event countdown dashboard.</p>
+    <a href="#contact" class="btn">Start Now</a>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <h2>Contact Us</h2>
+    <p>We’d love to hear from you! Reach out with your event queries or feedback.</p>
+    <div class="contact-container">
+      <form class="contact-form">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+      <div class="contact-details">
+        <h3>Get in Touch</h3>
+        <p><strong>Email:</strong> www.srinjoy2004@gmail.com</p>
+        <p><strong>Phone:</strong> +91 8768143130</p>
+        <p><strong>Address:</strong> 124 Barasat, Kolkata, India</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🎤 Conferences Events -->
+  <section id="conferences-events">
+    <header class="conf-hero gradient-rgb">
+      <div class="overlay"></div>
+      <div class="hero-content">
+        <h1>🎤 Conferences</h1>
+        <p>Plan and track professional conferences with real-time countdowns.</p>
+      </div>
+    </header>
+    <section class="event-form">
+<h2> ➕ 🎤 Add a Conference Event 🎤 ➕ </h2>
+      <form id="conf-event-form">
+        <input type="text" name="title" placeholder="Conference Title" required>
+        <textarea name="description" placeholder="Conference Description" rows="4" required></textarea>
+        <input type="datetime-local" name="date" required>
+        <input type="text" name="location" placeholder="Conference Venue" required>
+        <button type="submit" class="btn">Save Conference</button>
+      </form>
+    </section>
+    <section class="event-list">
+      <h2>⏱ Upcoming Conferences ⏱</h2>
+      <div id="conf-container"></div>
+    </section>
+  </section>
+
+  <!-- 🎶 Concerts -->
+  <section id="concerts-events">
+    <header class="concerts-hero gradient-rgb">
+      <div class="overlay"></div>
+      <div class="hero-content">
+        <h1>🎶 Concerts</h1>
+        <p>Track your favorite concerts and music events with style.</p>
+      </div>
+    </header>
+    <section class="event-form">
+     <h2>➕ 🎶 Add a Concert Event 🎶 ➕ </h2>    
+      <form id="concerts-event-form">
+        <input type="text" name="title" placeholder="Concert Title" required>
+        <textarea name="description" placeholder="Concert Description" rows="4" required></textarea>
+        <input type="datetime-local" name="date" required>
+        <input type="text" name="location" placeholder="Concert Venue" required>
+        <button type="submit" class="btn">Save Concert</button>
+      </form>
+    </section>
+    <section class="event-list">
+      <h2> ⏱ Upcoming Concerts ⏱ </h2>
+      <div id="concerts-container"></div>
+    </section>
+  </section>
+
+  <!-- 🎭 Stage Shows -->
+  <section id="stageshows-events">
+    <header class="stage-hero gradient-rgb">
+      <div class="overlay"></div>
+      <div class="hero-content">
+        <h1>🎭 Stage Shows</h1>
+        <p>Countdown to thrilling theatre and stage performances.</p>
+      </div>
+    </header>
+    <section class="event-form">
+     <h2>➕ 🎭 Add a Stage Show Event 🎭 ➕<h2>
+      <form id="stage-event-form">
+        <input type="text" name="title" placeholder="Stage Show Title" required>
+        <textarea name="description" placeholder="Stage Show Description" rows="4" required></textarea>
+        <input type="datetime-local" name="date" required>
+        <input type="text" name="location" placeholder="Stage Venue" required>
+        <button type="submit" class="btn">Save Stage Show</button>
+      </form>
+    </section>
+    <section class="event-list">
+<h2>⏱ Upcoming Stage Shows ⏱ </h2>
+      <div id="stage-container"></div>
+    </section>
+  </section>
+
+  <!-- 💻 Webinars -->
+  <section id="webinars-events">
+    <header class="webinar-hero gradient-rgb">
+      <div class="overlay"></div>
+      <div class="hero-content">
+        <h1>💻 Webinars</h1>
+        <p>Never miss an online webinar again with live countdowns.</p>
+      </div>
+    </header>
+    <section class="event-form">
+     <h2>➕ 💻🖥 Add a Webinar Event 🚀✨ ➕</h2>
+      <form id="webinar-event-form">
+        <input type="text" name="title" placeholder="Webinar Title" required>
+        <textarea name="description" placeholder="Webinar Description" rows="4" required></textarea>
+        <input type="datetime-local" name="date" required>
+        <input type="text" name="location" placeholder="Webinar Platform/Link" required>
+        <button type="submit" class="btn">Save Webinar</button>
+      </form>
+    </section>
+    <section class="event-list">
+      <h2>⏱ Upcoming Webinars ⏱</h2>
+      <div id="webinar-container"></div>
+    </section>
+  </section>
+
+  <!-- University Events -->
+  <section id="university-events">
+    <header class="uni-hero gradient-rgb">
+      <div class="overlay"></div>
+      <div class="hero-content">
+        <h1>🎓 University Events</h1>
+        <p>Seamlessly manage, track, and celebrate your university’s biggest moments.</p>
+      </div>
+    </header>
+    <section class="event-form">
+<h2>🎓✨➕ Add a New University Event ➕📚🎉</h2>
+
+      <form id="uni-event-form">
+        <input type="text" name="title" placeholder="Event Title" required>
+        <textarea name="description" placeholder="Event Description" rows="4" required></textarea>
+        <input type="datetime-local" name="date" required>
+        <input type="text" name="location" placeholder="Event Location" required>
+        <button type="submit" class="btn">Save Event</button>
+      </form>
+    </section>
+    <section class="event-list">
+      <h2>⏱ Upcoming University Events ⏱</h2>
+      <div id="uni-container"></div>
+    </section>
+  </section>
+
+  <!-- Sports Events -->
+  <section id="sports-events">
+    <header class="sports-hero gradient-rgb">
+      <div class="overlay"></div>
+      <div class="hero-content">
+        <h1>🏆 Sports Events</h1>
+        <p>Seamlessly manage, track, and celebrate your sports tournaments and activities.</p>
+      </div>
+    </header>
+    <section class="event-form">
+<h2>🏅⚽➕ Add a New Sports Event ➕🏀🏃‍♂</h2>
+
+      <form id="sports-event-form">
+        <input type="text" name="title" placeholder="Event Title (e.g., Football Tournament)" required>
+        <textarea name="description" placeholder="Event Description" rows="4" required></textarea>
+        <input type="datetime-local" name="date" required>
+        <input type="text" name="location" placeholder="Event Location (e.g., Stadium)" required>
+        <button type="submit" class="btn">Save Sports Event</button>
+      </form>
+    </section>
+    <section class="event-list">
+<h2>⏱ Upcoming Sports Events ⏱</h2>
+      <div id="sports-container"></div>
+    </section>
+  </section>
+
+<!--Festivals events-->
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Festivals Events with Countdown</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #0f0f0f, #070707);
+      color: #222;
+      text-align: center;
+    }
+
+    header {
+      padding: 40px 20px;
+      background: rgba(0, 0, 0, 0.6);
+      color: rgb(245, 245, 245);
+    }
+
+    .event-form, .event-list {
+      background: #0c0c0c;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 700px;
+      box-shadow: 0 4px 10px rgba(14, 14, 14, 0.2);
+    }
+
+    form input, form textarea {
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #fcfafa;
+      font-size: 1rem;
+    }
+
+    .btn {
+      padding: 12px 18px;
+      background: #4a40ff;
+      color: rgb(246, 252, 253);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #e91e63;
+    }
+
+    .event {
+      margin: 15px 0;
+      padding: 15px;
+      background: #f3f3f3;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+
+    .event h3 {
+      margin: 0;
+      color: #e00f54;
+    }
+
+    .countdown {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+<section id="Festivals">
+  <header class="Festivals-hero gradient-rgb">
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h1> 🎉Festivals Events🎊</h1>
+      <p>Seamlessly manage, track, and celebrate your festivals and activities.</p>
+    </div>
+  </header>
+
+  <section class="event-form">
+    <h2>🏅➕ Add a New Festivals Event ➕🏆</h2>
+
+    <form id="Festivals-form">
+      <input type="text" name="title" placeholder="Event Title (e.g., Diwali, Puja)" required>
+      <textarea name="description" placeholder="Event Description" rows="4" required></textarea>
+      <input type="datetime-local" name="date" required>
+      <input type="text" name="location" placeholder="Event Location (e.g., Temple, Hall)" required>
+      <button type="submit" class="btn">Save Festivals Event</button>
+    </form>
+  </section>
+
+  <section class="event-list">
+    <h2>⏱ Upcoming Festivals ⏱</h2>
+    <div id="Festivals-container"></div>
+  </section>
+</section>
+
+<script>
+  const form = document.getElementById("Festivals-form");
+  const container = document.getElementById("Festivals-container");
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const title = form.title.value;
+    const desc = form.description.value;
+    const date = new Date(form.date.value).getTime();
+    const location = form.location.value;
+
+    if (isNaN(date)) {
+      alert("Please select a valid date and time.");
+      return;
+    }
+
+    // Create event element
+    const eventDiv = document.createElement("div");
+    eventDiv.classList.add("event");
+    eventDiv.innerHTML = `
+      <h3>📌 ${title}</h3>
+      <p>${desc}</p>
+      <p><b>📍 Location:</b> ${location}</p>
+      <p><b>📅 Date:</b> ${new Date(date).toLocaleString()}</p>
+      <div class="countdown">Loading countdown...</div>
+    `;
+
+    container.appendChild(eventDiv);
+
+    const countdownEl = eventDiv.querySelector(".countdown");
+
+    // Countdown timer
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const diff = date - now;
+
+      if (diff <= 0) {
+        clearInterval(timer);
+        countdownEl.textContent = "🎊 Event Started!";
+        countdownEl.style.color = "green";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      countdownEl.textContent = `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }, 1000);
+
+    form.reset();
+  });
+</script>
+</body>
+</html>
+
+
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Event Countdown Dashboard. All rights reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Countdown Timer Logic
+    function startCountdown(element, dateString) {
+      function updateCountdown() {
+        const eventDate = new Date(dateString).getTime();
+        const now = new Date().getTime();
+        const distance = eventDate - now;
+        if(distance > 0){
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          element.innerHTML = ${days}d : ${hours}h : ${minutes}m : ${seconds}s;
+        } else {
+          element.innerHTML = "<strong>🎉 Event Started!</strong>";
+        }
+      }
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    }
+
+    // Helper to create cards dynamically
+    function handleForm(formId, containerId){
+      document.getElementById(formId).addEventListener("submit", function(e){
+        e.preventDefault();
+        const title = this.title.value;
+        const desc = this.description.value;
+        const date = this.date.value;
+        const location = this.location.value;
+
+        const card = document.createElement("div");
+        card.classList.add("event-card");
+        card.innerHTML = `
+          <h3>${title}</h3>
+          <p><strong>Date:</strong> ${date}</p>
+          <p><strong>Location:</strong> ${location}</p>
+          <p>${desc}</p>
+          <div class="countdown"></div>
+        `;
+        document.getElementById(containerId).appendChild(card);
+        startCountdown(card.querySelector(".countdown"), date);
+
+        this.reset();
+      });
+    }
+
+    // Attach handlers for all forms
+    handleForm("uni-event-form", "uni-container");
+    handleForm("sports-event-form", "sports-container");
+    handleForm("conf-event-form", "conf-container");
+    handleForm("concerts-event-form", "concerts-container");
+    handleForm("stage-event-form", "stage-container");
+    handleForm("webinar-event-form", "webinar-container");
+
+    // FAQ Accordion
+    document.querySelectorAll(".faq-question").forEach(button => {
+      button.addEventListener("click", () => {
+        const faqItem = button.parentElement;
+        document.querySelectorAll(".faq-item").forEach(item => {
+          if(item !== faqItem) item.classList.remove("active");
+        });
+        faqItem.classList.toggle("active");
+      });
+    });
+  </script>
+
+</body>
+</html>
+<script>
+  // Parse datetime-local string safely
+  function parseDateTimeLocal(value) {
+    if (!value) return null;
+    const [datePart, timePart = "00:00:00"] = value.split("T");
+    const [year, month, day] = datePart.split("-").map(Number);
+    const [hour = 0, minute = 0, second = 0] = timePart.split(":").map(Number);
+    return new Date(year, month - 1, day, hour, minute, second);
+  }
+
+  // Pad numbers
+  function two(n) {
+    return String(n).padStart(2, "0");
+  }
+
+  // Countdown Timer Logic
+  function startCountdown(element, dateString) {
+    const eventDate = parseDateTimeLocal(dateString);
+    if (!eventDate || isNaN(eventDate.getTime())) {
+      element.textContent = "Invalid date";
+      return;
+    }
+    const eventMs = eventDate.getTime();
+
+    function updateCountdown() {
+      const now = Date.now();
+      const distance = eventMs - now;
+
+      if (distance > 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        element.textContent = `${days}d : ${two(hours)}h : ${two(minutes)}m : ${two(seconds)}s`;
+      } else {
+        element.innerHTML = "<strong>🎉 Event Started!</strong>";
+        clearInterval(element._intervalId);
+      }
+    }
+
+    updateCountdown();
+    element._intervalId = setInterval(updateCountdown, 1000);
+  }
+
+  // Helper to create cards dynamically
+  function handleForm(formId, containerId) {
+    document.getElementById(formId).addEventListener("submit", function (e) {
+      e.preventDefault();
+      const title = this.title.value;
+      const desc = this.description.value;
+      const date = this.date.value;
+      const location = this.location.value;
+
+      const card = document.createElement("div");
+      card.classList.add("event-card");
+      card.innerHTML = `
+        <h3>${title}</h3>
+        <p><strong>Date:</strong> ${date.replace("T", " ")}</p>
+        <p><strong>Location:</strong> ${location}</p>
+        <p>${desc}</p>
+        <div class="countdown">Loading countdown...</div>
+      `;
+      document.getElementById(containerId).appendChild(card);
+      startCountdown(card.querySelector(".countdown"), date);
+
+      this.reset();
+    });
+  }
+
+  // Attach handlers for all forms
+  handleForm("uni-event-form", "uni-container");
+  handleForm("sports-event-form", "sports-container");
+  handleForm("conf-event-form", "conf-container");
+  handleForm("concerts-event-form", "concerts-container");
+  handleForm("stage-event-form", "stage-container");
+  handleForm("webinar-event-form", "webinar-container");
+
+  // FAQ Accordion
+  document.querySelectorAll(".faq-question").forEach((button) => {
+    button.addEventListener("click", () => {
+      const faqItem = button.parentElement;
+      document.querySelectorAll(".faq-item").forEach((item) => {
+        if (item !== faqItem) item.classList.remove("active");
+      });
+      faqItem.classList.toggle("active");
+    });
+  });
+</script>

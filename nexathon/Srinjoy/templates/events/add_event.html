@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Event</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>Add Your Special Events</h1>
+  <form method="POST">
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="Event Name" required><br><br>
+    <input type="datetime-local" name="date" required><br><br>
+    <textarea name="description" placeholder="Event Description"></textarea><br><br>
+    <button type="submit" class="btn">Add Event</button>
+  </form>
+  <h2>Upcoming Events</h2>
+  <ul>
+    {% for event in events %}
+      <li>
+        <strong>{{ event.name }}</strong> - {{ event.date }} <br>
+        {{ event.description }}
+      </li>
+    {% empty %}
+      <li>No events added yet.</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
+

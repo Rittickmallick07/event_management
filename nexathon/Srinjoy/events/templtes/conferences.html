@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🎤 Conferences</title>
+  <link rel="stylesheet" href="{% static 'events/event.css' %}">
+</head>
+<body>
+  <header class="page-hero">
+    <h1>🎤 Conferences</h1>
+    <p>Plan, manage, and track your professional conferences with countdowns.</p>
+  </header>
+
+  <section class="event-form">
+    <h2>Add a Conference</h2>
+    <form method="POST">
+      {% csrf_token %}
+      <input type="text" name="event_name" placeholder="Conference Name" required>
+      <input type="date" name="event_date" required>
+      <input type="text" name="event_location" placeholder="Location" required>
+      <textarea name="event_desc" placeholder="Conference Details" required></textarea>
+      <button type="submit" class="btn">Save Conference</button>
+    </form>
+  </section>
+
+  <footer>
+    <p><a href="/events/logout/">Logout</a></p>
+  </footer>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🎤 Conferences</title>
+  <link rel="stylesheet" href="{% static 'events/event.css' %}">
+</head>
+<body>
+  <header class="page-hero">
+    <h1>🎤 Conferences</h1>
+    <p>Plan, manage, and track your professional conferences with countdowns.</p>
+  </header>
+
+  <section class="event-form">
+    <h2>Add a Conference</h2>
+    <form method="POST">
+      {% csrf_token %}
+      <input type="text" name="event_name" placeholder="Conference Name" required>
+      <input type="datetime-local" name="event_date" required>
+      <input type="text" name="event_location" placeholder="Location" required>
+      <textarea name="event_desc" placeholder="Conference Details" required></textarea>
+      <button type="submit" class="btn">Save Conference</button>
+    </form>
+  </section>
+
+  <section class="event-list">
+    <h2>📅 Upcoming Conferences</h2>
+    {% for event in events %}
+      <div class="event-card">
+        <h3>{{ event.name }}</h3>
+        <p><strong>Date:</strong> {{ event.date }}</p>
+        <p><strong>Location:</strong> {{ event.location }}</p>
+        <p>{{ event.description }}</p>
+        <div class="countdown" data-date="{{ event.date|date:'Y-m-d H:i:s' }}"></div>
+      </div>
+    {% empty %}
+      <p>No conferences yet. Add one above.</p>
+    {% endfor %}
+  </section>
+
+  <footer>
+    <p><a href="/events/logout/">Logout</a></p>
+  </footer>
+
+  <script>
+    // Countdown Timer
+    function startCountdowns() {
+      const countdowns = document.querySelectorAll(".countdown");
+      setInterval(() => {
+        countdowns.forEach(cd => {
+          const eventDate = new Date(cd.getAttribute("data-date")).getTime();
+          const now = new Date().getTime();
+          const distance = eventDate - now;
+
+          if (distance > 0) {
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            cd.innerHTML = `${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
+          } else {
+            cd.innerHTML = "<strong>🎉 Event Started!</strong>";
+          }
+        });
+      }, 1000);
+    }
+    startCountdowns();
+  </script>
+</body>
+</html>

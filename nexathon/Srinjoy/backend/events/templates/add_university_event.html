@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add University Event</title>
+  <link rel="stylesheet" href="{% static 'events/university.css' %}">
+</head>
+<body>
+  <header class="uni-hero">
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h1>➕ Add University Event</h1>
+      <p>Fill out the form to create a new event.</p>
+    </div>
+  </header>
+
+  <section class="event-form">
+    <h2>Event Details</h2>
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn">Save Event</button>
+    </form>
+    <p><a href="{% url 'university_events' %}" class="btn small">⬅ Back to Events</a></p>
+  </section>
+</body>
+</html>

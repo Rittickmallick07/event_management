@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>University Event Dashboard</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <section class="event-form">
+    <h2>Add Your University Event</h2>
+    <form method="POST" action="/add_university_event">
+      <input type="text" name="event_name" placeholder="Event Name" required>
+      <input type="date" name="event_date" required>
+      <input type="text" name="event_location" placeholder="Location" required>
+      <textarea name="event_desc" placeholder="Event Description" required></textarea>
+      <button type="submit" class="btn glow">Save Event</button>
+    </form>
+  </section>
+
+  <section class="event-list">
+    <h2>📅 Upcoming University Events</h2>
+    <div id="events-container">
+      {% for event in events %}
+      <div class="event-card">
+        <h3>{{ event['event_name'] }}</h3>
+        <p><strong>Date:</strong> {{ event['event_date'] }}</p>
+        <p><strong>Location:</strong> {{ event['event_location'] }}</p>
+        <p>{{ event['event_desc'] }}</p>
+        <div class="countdown" data-date="{{ event['event_date'] }}"></div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+<script>
+// Countdown Timer
+function startCountdowns() {
+  const countdowns = document.querySelectorAll(".countdown");
+  setInterval(() => {
+    countdowns.forEach(cd => {
+      const eventDate = new Date(cd.getAttribute("data-date")).getTime();
+      const now = new Date().getTime();
+      const distance = eventDate - now;
+
+      if (distance > 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        cd.innerHTML = `${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
+      } else {
+        cd.innerHTML = "<strong>🎉 Event Started!</strong>";
+      }
+    });
+  }, 1000);
+}
+
+startCountdowns();
+</script>
+</body>
+</html>
+{% extends "base.html" %}
+{% block title %}Event Countdown Dashboard{% endblock %}
+
+{% block head %}
+<!-- Countdown script will be below -->
+{% endblock %}
+
+{% block body %}
+<!-- Floating ambient orbs -->
+<div class="floating-orb orb1"></div>
+<div class="floating-orb orb2"></div>
+
+<!-- LOGIN card (simple demo) -->
+<section class="login-section">
+  <div class="login-card">
+    <h2>🔐 Login to Your Dashboard</h2>
+
+    {% if user %}
+      <p class="muted">Signed in as <strong>{{ user }}</strong></p>
+      <form method="GET" action="{{ url_for('logout') }}">
+        <button class="btn primary" type="submit">Logout</button>
+      </form>
+    {% else %}
+      <form method="POST" action="{{ url_for('login') }}">
+        <input name="email" type="email" placeholder="Email Address" required>
+        <input name="password" type="password" placeholder="Password" required>
+        <button class="btn primary" type="submit">Login</button>
+      </form>
+      <p class="signup-text">Don’t have an account? <a href="#">Sign Up</a></p>
+      <p class="muted small">Demo login: admin@example.com / password123</p>
+    {% endif %}
+  </div>
+</section>
+
+<!-- NAV -->
+<header class="hero">
+  <nav class="navbar">
+    <div class="logo">⏳ Event Countdown Dashboard</div>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#usecases">Use Cases</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero-content">
+    <h1>Manage Your Events with Precision</h1>
+    <p class="subtitle">A powerful countdown dashboard to keep every event on time and stress-free.</p>
+    <a href="#university-events" class="btn accent">Get Started</a>
+  </div>
+</header>
+
+<!-- place flash messages -->
+<div style="max-width:1100px;margin:12px auto;padding:0 20px;">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+</div>
+
+<!-- Features -->
+<section id="features" class="features">
+  <h2>Why Choose Our Countdown Dashboard?</h2>
+  <div class="cards">
+    <div class="card"><h3>Real-time Countdown</h3><p>Accurate timers for every event.</p></div>
+    <div class="card"><h3>Remote Control</h3><p>Update timers from any device.</p></div>
+    <div class="card"><h3>Multi-Event Support</h3><p>Manage many events from one place.</p></div>
+  </div>
+</section>
+
+<!-- Usecases -->
+<section id="usecases" class="usecases">
+  <h2>Perfect For Every Occasion</h2>
+  <div class="usecase-grid">
+    <div class="usecase">🎤 Conferences</div>
+    <div class="usecase">🎶 Concerts</div>
+    <div class="usecase">🎭 Stage Shows</div>
+    <div class="usecase">🎓 University Events</div>
+    <div class="usecase">🏆 Sports</div>
+    <div class="usecase">💻 Webinars</div>
+  </div>
+</section>
+
+<!-- UNIVERSITY EVENTS -->
+<section id="university-events" class="section-pad">
+  <div class="section-inner">
+    <header class="section-hero">
+      <h2>🎓 University Events</h2>
+      <p class="lead">Seamlessly manage, track, and celebrate your university’s biggest moments.</p>
+    </header>
+
+    <div class="forms-row">
+      <div class="form-panel">
+        <h3>➕ Add a University Event</h3>
+        <form method="POST" action="{{ url_for('add_event') }}">
+          <input name="title" placeholder="Event Title" required>
+          <textarea name="description" rows="3" placeholder="Event Description" required></textarea>
+          <!-- use datetime-local so user can set time too -->
+          <label class="small muted">Event date & time</label>
+          <input name="datetime" type="datetime-local" required>
+          <input name="location" placeholder="Event Location" required>
+          <input type="hidden" name="category" value="university">
+          <button class="btn accent" type="submit">Save Event</button>
+        </form>
+      </div>
+
+      <div class="events-panel">
+        <h3>📅 Upcoming University Events</h3>
+        {% if university_events %}
+          {% for ev in university_events %}
+            <div class="event-card">
+              <div class="event-top">
+                <h4>{{ ev.title }}</h4>
+                <form method="POST" action="{{ url_for('delete_event', event_id=ev.id) }}" onsubmit="return confirm('Delete this event?');">
+                  <button class="btn small ghost" type="submit">Delete</button>
+                </form>
+              </div>
+              <p class="muted"><strong>Date:</strong> {{ ev.datetime_iso|replace('T', ' ') }}</p>
+              <p class="muted"><strong>Location:</strong> {{ ev.location }}</p>
+              <p>{{ ev.description }}</p>
+              <div class="countdown" data-date="{{ ev.datetime_iso }}"></div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p class="muted">No university events yet. Add one!</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPORTS EVENTS -->
+<section id="sports-events" class="section-pad alt">
+  <div class="section-inner">
+    <header class="section-hero">
+      <h2>🏆 Sports Events</h2>
+      <p class="lead">Seamlessly manage, track, and celebrate your sports tournaments and activities.</p>
+    </header>
+
+    <div class="forms-row">
+      <div class="form-panel">
+        <h3>➕ Add a Sports Event</h3>
+        <form method="POST" action="{{ url_for('add_event') }}">
+          <input name="title" placeholder="Event Title (e.g., Football Tournament)" required>
+          <textarea name="description" rows="3" placeholder="Event Description" required></textarea>
+          <label class="small muted">Event date & time</label>
+          <input name="datetime" type="datetime-local" required>
+          <input name="location" placeholder="Event Location (e.g., Stadium)" required>
+          <input type="hidden" name="category" value="sports">
+          <button class="btn accent" type="submit">Save Sports Event</button>
+        </form>
+      </div>
+
+      <div class="events-panel">
+        <h3>📅 Upcoming Sports Events</h3>
+        {% if sports_events %}
+          {% for ev in sports_events %}
+            <div class="event-card">
+              <div class="event-top">
+                <h4>{{ ev.title }}</h4>
+                <form method="POST" action="{{ url_for('delete_event', event_id=ev.id) }}" onsubmit="return confirm('Delete this event?');">
+                  <button class="btn small ghost" type="submit">Delete</button>
+                </form>
+              </div>
+              <p class="muted"><strong>Date:</strong> {{ ev.datetime_iso|replace('T', ' ') }}</p>
+              <p class="muted"><strong>Location:</strong> {{ ev.location }}</p>
+              <p>{{ ev.description }}</p>
+              <div class="countdown" data-date="{{ ev.datetime_iso }}"></div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p class="muted">No sports events yet. Add one!</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="section-pad">
+  <div class="section-inner narrow">
+    <h3>Contact Us</h3>
+    <p class="muted">We’d love to hear from you!</p>
+    <div class="contact-row">
+      <form method="POST" class="contact-form" action="#">
+        <input name="name" placeholder="Your Name" required>
+        <input name="email" type="email" placeholder="Your Email" required>
+        <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+        <button class="btn" type="submit">Send Message</button>
+      </form>
+      <div class="contact-details">
+        <h4>Get in Touch</h4>
+        <p><strong>Email:</strong> www.srinjoy2004@gmail.com</p>
+        <p><strong>Phone:</strong> +91 8768143130</p>
+        <p><strong>Address:</strong> 124 Barasat, Kolkata, India</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>&copy; 2025 Event Countdown Dashboard. All rights reserved.</p>
+</footer>
+
+<!-- SCRIPTS: countdown & FAQ accordion -->
+<script>
+  // Countdown function for an element
+  function startCountdownElement(cd) {
+    function update() {
+      const iso = cd.getAttribute('data-date');
+      const eventTime = new Date(iso).getTime();
+      const now = Date.now();
+      const diff = eventTime - now;
+      if (diff <= 0) {
+        cd.innerHTML = "<strong>🎉 Event Started!</strong>";
+        return;
+      }
+      const d = Math.floor(diff / (1000*60*60*24));
+      const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+      const m = Math.floor((diff % (1000*60*60)) / (1000*60));
+      const s = Math.floor((diff % (1000*60)) / 1000);
+      cd.textContent = `${d}d : ${h}h : ${m}m : ${s}s`;
+    }
+    update();
+    cd._interval = setInterval(update, 1000);
+  }
+
+  // Start all countdowns on page
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.countdown').forEach(cd => startCountdownElement(cd));
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const ai = btn.nextElementSibling;
+        ai.style.display = (ai.style.display === 'block') ? 'none' : 'block';
+      });
+    });
+  });
+</script>
+
+{% endblock %}
+504

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>University Events</title>
+  <link rel="stylesheet" href="university.css">
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <header class="uni-hero">
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h1>🎓 University Events</h1>
+      <p>Plan, manage, and track your university’s special events seamlessly.</p>
+    </div>
+  </header>
+
+  <!-- Event Form Section -->
+  <section class="event-form">
+    <h2>Add Your University Event</h2>
+    <form action="/add_university_event" method="POST">
+      <input type="text" name="event_name" placeholder="Event Name" required>
+      <input type="date" name="event_date" required>
+      <input type="text" name="event_location" placeholder="Location" required>
+      <textarea name="event_desc" placeholder="Event Description" required></textarea>
+      <button type="submit" class="btn">Save Event</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Event Countdown Dashboard - University Edition</p>
+  </footer>
+
+</body>
+</html>

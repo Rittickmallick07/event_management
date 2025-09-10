@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Stage Show</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #141e30, #243b55);
+      color: white;
+      text-align: center;
+      padding: 50px;
+    }
+    form {
+      max-width: 400px;
+      margin: auto;
+      background: rgba(0,0,0,0.6);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(255,0,255,0.6);
+    }
+    input, textarea {
+      width: 100%;
+      margin: 8px 0;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      font-size: 15px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 12px;
+      width: 100%;
+      border-radius: 10px;
+      border: none;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      background: linear-gradient(90deg, violet, cyan, blue);
+      color: #fff;
+      box-shadow: 0 0 15px cyan;
+      transition: 0.3s;
+    }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px violet, 0 0 35px cyan;
+    }
+  </style>
+</head>
+<body>
+  <h1>➕ Add Stage Show</h1>
+  <form method="POST">
+    {% csrf_token %}
+    <input type="text" name="title" placeholder="Show Title" required>
+    <textarea name="description" placeholder="Show Description" required></textarea>
+    <input type="datetime-local" name="date" required>
+    <input type="text" name="location" placeholder="Show Location" required>
+    <button type="submit">Save Show</button>
+  </form>
+</body>
+</html>
